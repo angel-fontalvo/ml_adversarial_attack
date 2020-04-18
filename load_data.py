@@ -59,17 +59,17 @@ if __name__ == "__main__":
     # (i.e an (x, y) pair, where x = data/features, and y = labels)
     data = []
     labels = []
-    print('Separating and packaging data')
+    print('[INFO] Separating and packaging data')
     for features, label in training_data:
         data.append(features)
         labels.append(label)
 
     # Convert data features to a format which will be compatible with Keras. 
-    print('Reshaping features')
+    print('[INFO] Reshaping features')
     X = np.array(data).reshape(-1, img_size, img_size, 3)
 
     # Package [y, categories] to a format which will be compatible with Cleverhans 
-    print('Reshaping labels')
+    print('[INFO] Reshaping labels')
     y = np.array(labels, dtype='int').ravel()
     tot_labels = y.shape[0]
     categorical = np.zeros((tot_labels, len(categories)))
@@ -82,7 +82,7 @@ if __name__ == "__main__":
         os.mkdir(output)
 
     # Save our preprocessed training dataset
-    print('Saving training sets')
+    print('[INFO] Saving training sets')
     with open(os.path.join(output, 'x.p'), 'wb') as f:
         pickle.dump(X, f, protocol=pickle.HIGHEST_PROTOCOL)
 
