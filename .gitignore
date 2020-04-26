@@ -1,4 +1,6 @@
 venv/
+.idea/
+*.png
 *.jpg
 *.p
 *.h5

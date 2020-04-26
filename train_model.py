@@ -19,16 +19,14 @@ ap.add_argument("-d", "--dataset", required=True,
                 help="path to dataset dir that will be used to train the model")
 ap.add_argument("-ts", "--test-size", type=int, default=1200,
                 help="How many samples from your training data to use to validate the model. Default is 1200")
-ap.add_argument("-o", "--output", default="output_model",
-                help="path to output dir for the trained model. Defaut is output_model")
+ap.add_argument("-o", "--output", default="model",
+                help="path to output dir for the trained model. Defaut is model")
 ap.add_argument("-m", "--model-name", default="saved_model.h5",
                 help="The name of the model. Default is saved_model.h5")
 ap.add_argument("-e", "--epochs", type=int, default=10,
                 help="The number of epochs you wish to use to train your model. Default is 10")
 ap.add_argument("-s", "--batch-size", type=int, default=70,
                 help="The number of data samples you wish your model to use during its training process. Default is 70.")
-ap.add_argument("-r", "--learning-rate", type=float, default=.001,
-                help="Learning rate use during training. Default is .001")
 args = vars(ap.parse_args())
 
 
@@ -59,7 +57,8 @@ def substitute_model(x, nb_classes):
     model.add(tf.keras.layers.Dropout(0.5))
 
     # output layer
-    model.add(Dense(1, activation="softmax"))
+    # model.add(Dense(1, activation="softmax"))
+    model.add(Dense(nb_classes, activation="softmax"))
 
     return model
 
