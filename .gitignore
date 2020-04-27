@@ -1,6 +1,7 @@
 venv/
 .idea/
-*.png
-*.jpg
+adv_imgs/
+data_out/
+dataset/
 *.p
 *.h5
