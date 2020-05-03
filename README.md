@@ -24,6 +24,11 @@ The following dependencies are required:
 
 ## End-to-end Attack
 
+### Binaries 
+* load_data.py
+* train_model.py
+* generate_adversarial_images.py
+
 ### Fetch data
 
 ```bash
@@ -68,10 +73,9 @@ Adversarial images will be generated under:
 ###  Evaluate the images
 todo
 
-### Binaries 
-* load_data.py
-* train_model.py
-* generate_adversarial_images.py
+## Bring Your Own Model
+todo
 
-
+## Defenses
+todo
 
