@@ -37,31 +37,32 @@ def preprocess_data(dataset, img_size):
     training_data_processed = []
     unique_categories = []
 
-    for category in os.listdir(dataset):
+    for img_category in os.listdir(dataset):
+      
+        if img_category not in unique_categories:
+            unique_categories.append(img_category)
+            
+        img_category_index = unique_categories.index(category)
+        
+        img_path = os.path.join(dataset, img_category)
 
-        if category not in unique_categories:
-            unique_categories.append(category)
-
-        path = os.path.join(dataset, category)
-        category_num = unique_categories.index(category)
-
-        for img in os.listdir(path):
+        for img in os.listdir(img_path):
             try:
-                img_raw = cv2.imread(os.path.join(path, img))
+                img_processing = cv2.imread(os.path.join(img_path, img))
 
                 # Explanation as to why this needs to occur here
                 # https://stackoverflow.com/questions/54959387/rgb-image-display-in-matplotlib-plt-imshow-returns-a-blue-image
-                img_raw = cv2.cvtColor(img_raw, cv2.COLOR_BGR2RGB)
+                img_processing = cv2.cvtColor(img_processing, cv2.COLOR_BGR2RGB)
 
-                img_raw = cv2.resize(img_raw, (img_size, img_size))
+                img_processing = cv2.resize(img_processing, (img_size, img_size))
 
                 # Since we are using imagery data, we know that each pixel value on that image will be between a range of 0-255
                 # thus we'll divide our data features by 255 in order to get each pixel in our images to be in the
                 # range of 0-1 instead of 0-255 and round to 2 decimal places.
-                img_raw = np.round(img_raw / 255., 2)
+                img_processed = np.round(img_processing / 255., 2)
 
                 # add processed data to the list
-                training_data_processed.append([img_raw, category_num])
+                training_data_processed.append([img_processed, img_category_index])
             except Exception as e:
                 print('Unable to parse {}/{}'.format(category, img))
 
