@@ -7,29 +7,41 @@ import argparse
 
 ap = argparse.ArgumentParser()
 ap.add_argument("-d", "--dataset_dir", required=True,
-	help="path to input dataset dir which contains our data. The data in this folder will be in the format: " +
-		"$dataset_dir/LABEL_A/data1.jpg, " +
-	       "$dataset_dir/LABEL_A/data2.jpg, " +
-		"$dataset_dir/LABEL_B/data1.jpg," +
-	       "$dataset_dir/LABEL_B/data2.jpg,")
+                help="path to input dataset dir which contains our data. " +
+                     "The data in this folder will be in the format: " +
+                     "$dataset_dir/LABEL_A/data1.jpg, " +
+                     "$dataset_dir/LABEL_A/data2.jpg, " +
+                     "$dataset_dir/LABEL_B/data1.jpg, " +
+                     "$dataset_dir/LABEL_B/data2.jpg,")
 ap.add_argument("-o", "--output_dir", required=True,
-	help="path to output dir for processed data ")
+                help="path to output dir for processed data: " )
 ap.add_argument("-s", "--size", type=int, default=70,
-	help="Size of the image. Default is 70")
+                help="Size of the image. Default is 70")
 
 args = vars(ap.parse_args())
 
+
 def preprocess_data(dataset, img_size):
-    training_data = []
-    categories = []
+    """
+    Performs the following operations for each piece of data in the dataset :
+    1. Transform the data into some numeric value
+    2. Transform color images to B&W. Each pixel is now in the range of 0-255 for B&W
+    3. Divide each pixel by 255 to get it in any range between 0-1, and round to 2 decimal places
+    :rtype: object
+    :param dataset: directory where our data is stored
+    :param img_size: integer that will be used for length and width of our images
+    :return: [training_data_processed, unique_categories]
+    """
+    training_data_processed = []
+    unique_categories = []
 
     for category in os.listdir(dataset):
 
-        if category not in categories:
-            categories.append(category)
+        if category not in unique_categories:
+            unique_categories.append(category)
 
         path = os.path.join(dataset, category)
-        category_num = categories.index(category)
+        category_num = unique_categories.index(category)
 
         for img in os.listdir(path):
             try:
@@ -38,18 +50,20 @@ def preprocess_data(dataset, img_size):
                 # Explanation as to why this needs to occur here
                 # https://stackoverflow.com/questions/54959387/rgb-image-display-in-matplotlib-plt-imshow-returns-a-blue-image
                 img_raw = cv2.cvtColor(img_raw, cv2.COLOR_BGR2RGB)
+
                 img_raw = cv2.resize(img_raw, (img_size, img_size))
 
                 # Since we are using imagery data, we know that each pixel value on that image will be between a range of 0-255
-                # thus we'll divide our data-features by 255 in order to get each bit in our images to be in the
-                # range of 0-1 instead of 0-255. 
+                # thus we'll divide our data features by 255 in order to get each pixel in our images to be in the
+                # range of 0-1 instead of 0-255 and round to 2 decimal places.
                 img_raw = np.round(img_raw / 255., 2)
 
-                training_data.append([img_raw, category_num])
+                # add processed data to the list
+                training_data_processed.append([img_raw, category_num])
             except Exception as e:
                 print('Unable to parse {}/{}'.format(category, img))
-    
-    return training_data, categories
+
+    return training_data_processed, unique_categories
 
 
 if __name__ == "__main__":
@@ -60,10 +74,10 @@ if __name__ == "__main__":
     random.shuffle(training_data)
 
     # Separate and package training data into the variables that will be fed to the neural network
-    # (i.e an (x, y) pair, where x = data-features, and y = labels)
+    # (i.e an (x, y) pair, where x = features from your data, and y = labels)
     data = []
     labels = []
-    print('[INFO] Separating and packaging data')
+    print('[INFO] Separating and packaging training data')
     for features, label in training_data:
         data.append(features)
         labels.append(label)
@@ -92,6 +106,6 @@ if __name__ == "__main__":
 
     with open(os.path.join(output, 'y.p'), 'wb') as f:
         pickle.dump(categorical, f)
-        
+
     with open(os.path.join(output, 'categories.p'), 'wb') as f:
         pickle.dump(classes, f)
