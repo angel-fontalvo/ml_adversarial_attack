@@ -25,8 +25,9 @@ def preprocess_data(dataset, img_size):
     """
     Performs the following operations for each piece of data in the dataset :
     1. Transform the data into some numeric value
-    2. Each pixel for the color image is in the range of 0-255
-    3. Divide each pixel by 255 to get it in any range between 0-1, and round to 2 decimal places. This is done to reduce the amount of daata that must be processed.
+    2. Resize the data
+    3. Each point is some numeric value. Is this case, since this is a color image, each value (i.e pixel) will be in the range of 0-255
+    3. Divide each pixel by 255 to get it in any range between 0-1, and round to 2 decimal places. This is done to reduce the amount of data that must be processed.
     :rtype: object
     :param dataset: directory where our data is stored
     :param img_size: integer that will be used for length and width of our images
