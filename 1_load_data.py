@@ -6,10 +6,14 @@ import numpy as np
 import argparse
 
 ap = argparse.ArgumentParser()
-ap.add_argument("-d", "--dataset", required=True,
-	help="path to input dataset dir")
-ap.add_argument("-o", "--output", required=True,
-	help="path to output dir for processed data")
+ap.add_argument("-d", "--dataset_dir", required=True,
+	help="path to input dataset dir which contains our data. The data in this folder will be in the format: " +
+		"$dataset_dir/LABEL_A/data1.jpg, " +
+	       "$dataset_dir/LABEL_A/data2.jpg, " +
+		"$dataset_dir/LABEL_B/data1.jpg," +
+	       "$dataset_dir/LABEL_B/data2.jpg,")
+ap.add_argument("-o", "--output_dir", required=True,
+	help="path to output dir for processed data ")
 ap.add_argument("-s", "--size", type=int, default=70,
 	help="Size of the image. Default is 70")
 
@@ -37,7 +41,7 @@ def preprocess_data(dataset, img_size):
                 img_raw = cv2.resize(img_raw, (img_size, img_size))
 
                 # Since we are using imagery data, we know that each pixel value on that image will be between a range of 0-255
-                # thus we'll divide our feature/data by 255 in order to get each bit in our images to be in the
+                # thus we'll divide our data-features by 255 in order to get each bit in our images to be in the
                 # range of 0-1 instead of 0-255. 
                 img_raw = np.round(img_raw / 255., 2)
 
@@ -56,7 +60,7 @@ if __name__ == "__main__":
     random.shuffle(training_data)
 
     # Separate and package training data into the variables that will be fed to the neural network
-    # (i.e an (x, y) pair, where x = data/features, and y = labels)
+    # (i.e an (x, y) pair, where x = data-features, and y = labels)
     data = []
     labels = []
     print('[INFO] Separating and packaging data')
