@@ -5,9 +5,9 @@
 
 This tool generates poisonous inputs designed to cause deep neural networks to make a decision on behalf of the attacker. 
 
-todo: create process that generates targetted attack
+**todo**: create process that generates targetted attack
 
-todo: jk, it's already done
+**todo**: jk, it's already done
 
 | __Benign__ | __Adversarial__ |
 |-------------|------------|
