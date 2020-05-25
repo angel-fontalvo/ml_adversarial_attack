@@ -3,11 +3,7 @@
 
 # Machine Learning Adversarial Image Generator 
 
-This tool generates poisonous inputs designed to cause deep neural networks to make a decision on behalf of the attacker. 
-
-**todo**: create process that generates targetted attack
-
-**todo**: jk, it's already done
+This tool generates poisonous inputs designed to cause deep neural networks to make decisions on behalf of the attacker. 
 
 | __Benign__ | __Adversarial__ |
 |-------------|------------|
