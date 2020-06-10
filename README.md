@@ -27,7 +27,7 @@ This project was implemented and tested on Windows with Python 3.6, and TensorFl
 
 Clone the repo:
 ```bash
-git clone https://github.com/mkocabas/VIBE.git
+git clone https://github.com/angel-fontalvo/Traffic-Sign-Dataset
 ```
 
 Install the requirements using `virtualenv`:
