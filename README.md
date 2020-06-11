@@ -49,10 +49,10 @@ source scripts/install.sh
 ```bash
 git clone https://github.com/angel-fontalvo/Traffic-Sign-Dataset.git
 ```
-About the dataset: The dataset contains a list of folders, each folder having the name of a traffic sign. Inside of each traffic sign folder, there will be 150-250 images of that sign. 
+About the dataset: The dataset contains a list of folders, each folder having the name of a traffic sign. Inside of each, there will be 150-250 images of that sign. The folder name will be your label, and its contents will be your training data. 
 
 ### (Optional) Augment your training data
-Increases the number of images in each folder to 6,500-8,000.
+Increases the image count in each folder to 6,500-8,000.
 todo
 
 ###  Generate training labels and features 
