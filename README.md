@@ -88,8 +88,8 @@ $ python generate_adversarial_images.py \
 ```
 Adversarial images will be generated under:
 * `adv_imgs\adverarial` = adversarial images
-* `adv_imgs\noise` = noise added to benign image
-* `adv_imgs\reg` = the benign image
+* `adv_imgs\noise` = noise added to benign images
+* `adv_imgs\reg` = benign images
 
 ###  Evaluate the images
 todo
