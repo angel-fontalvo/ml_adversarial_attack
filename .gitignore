@@ -5,3 +5,4 @@ data_out/
 dataset/
 *.p
 *.h5
+Traffic-Sign-Dataset/

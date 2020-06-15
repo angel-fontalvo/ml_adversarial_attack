@@ -152,7 +152,7 @@ if __name__ == '__main__':
 
     # Evaluate the accuracy of the model on adversarial examples
     acc = model_eval(sess, x, y, preds_adv, x_test, y_test, args=eval_params)
-    print('Test accuracy on adversarial examples (dodging): %0.4f\n' % acc)
+    print('[INFO] Test accuracy on adversarial examples (dodging): %0.4f\n' % acc)
 
     # Define correct shape and size symbolically
     # This is done because if you don't specify the actual size when appending the results in model_pred,
@@ -199,4 +199,4 @@ if __name__ == '__main__':
     save_images_to_folder(0.5 + (adv_features - x_test),
                           size, os.path.join(adversarial_output, 'noise'))
     save_images_to_folder(
-        x_test, size, os.path.join(adversarial_output, 'regular'))
+        x_test, size, os.path.join(adversarial_output, 'benign'))

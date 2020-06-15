@@ -6,17 +6,17 @@ import numpy as np
 import argparse
 
 ap = argparse.ArgumentParser()
-ap.add_argument("-d", "--dataset_dir", required=True,
-                help="path to input dataset dir which contains our data. " +
+ap.add_argument("-d", "--data_in", required=True,
+                help="path to input dataset dir which contains unprocessed data. " +
                      "The data in this folder will be in the format: " +
                      "$dataset_dir/LABEL_A/data1.jpg, " +
                      "$dataset_dir/LABEL_A/data2.jpg, " +
                      "$dataset_dir/LABEL_B/data1.jpg, " +
                      "$dataset_dir/LABEL_B/data2.jpg,")
-ap.add_argument("-o", "--output_dir", required=True,
-                help="path to output dir for processed data: " )
+ap.add_argument("-o", "--data_out", required=True,
+                help="path to output dir for processed data: ")
 ap.add_argument("-s", "--size", type=int, default=70,
-                help="Size of the image. Default is 70")
+                help="Size of the image length and width of each image after being processed. Default is 70")
 
 args = vars(ap.parse_args())
 
@@ -42,7 +42,7 @@ def preprocess_data(dataset, img_size):
         if img_category not in unique_categories:
             unique_categories.append(img_category)
             
-        img_category_index = unique_categories.index(category)
+        img_category_index = unique_categories.index(img_category)
         
         img_path = os.path.join(dataset, img_category)
 
@@ -71,7 +71,7 @@ def preprocess_data(dataset, img_size):
 
 if __name__ == "__main__":
     img_size = args["size"]
-    training_data, categories = preprocess_data(args["dataset"], img_size)
+    training_data, categories = preprocess_data(args["data_in"], img_size)
 
     # shuffle our data
     random.shuffle(training_data)
@@ -98,7 +98,7 @@ if __name__ == "__main__":
 
     classes = np.array(categories)
 
-    output = args["output"]
+    output = args["data_out"]
     if not os.path.exists(output):
         os.mkdir(output)
 
