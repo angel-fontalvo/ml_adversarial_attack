@@ -77,7 +77,10 @@ $ python 1_load_data.py \
     --data_in $DATA_PREPROCESSED \
     --data_out $DATA_PROCESSED
 ```
-3 files will be generated in `$DATA_PROCESSED`: `x.p`, `y.p`, and `categories.p`
+3 files will be generated in `$DATA_PROCESSED`: 
+- `x.p` = This will be a list of the features that make up a single image.  Type: This will be a list of 2d arrays.  
+- `y.p` = This will be the corresponding label of for each of the features in x.p. Type: This will be a list of 2d arrays. 
+- `categories.p` = This will be a list of all unique labels we'll be teaching the machine to recognize. Type: List of strings
 
 ###  Train traffic sign classifier model
 
